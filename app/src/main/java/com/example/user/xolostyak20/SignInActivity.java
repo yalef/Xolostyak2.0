@@ -37,12 +37,19 @@ public class SignInActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null){
-
+                    Intent i = new Intent(SignInActivity.this,SearchActivity.class);
+                    startActivity(i);
                 }else{
 
                 }
             }
         };
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user!=null){
+            Intent i = new Intent(SignInActivity.this,SearchActivity.class);
+            startActivity(i);
+        }
+
         log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +69,6 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(SignInActivity.this,"Login succesfull!",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(SignInActivity.this,SearchActivity.class);
-                    startActivity(i);
                 }else {
                     Toast.makeText(SignInActivity.this,"Login not succesfull!",Toast.LENGTH_SHORT).show();
                 }
@@ -77,8 +82,6 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(SignInActivity.this,"Registration succesfull!",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(SignInActivity.this,SearchActivity.class);
-                    startActivity(i);
                 }else{
                     Toast.makeText(SignInActivity.this,"Registration not succesfull!",Toast.LENGTH_SHORT).show();
                 }
