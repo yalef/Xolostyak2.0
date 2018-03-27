@@ -2,6 +2,9 @@ package com.example.user.xolostyak20;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -10,32 +13,57 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView text;
-
-    private DatabaseReference myRef;
-
+    ListView ingridients_lv;
+    private DatabaseReference rootRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
         text = (TextView) findViewById(R.id.text);
-        myRef = FirebaseDatabase.getInstance().getReference();
-        
-        myRef.addValueEventListener(new ValueEventListener() {
+        ingridients_lv = (ListView) findViewById(R.id.ingr_list);
+
+        user = auth.getInstance().getCurrentUser();
+
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference searchRef = rootRef.child("Search");
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<>();
-                String value = dataSnapshot.child("Рецепты").child("1").child("Имя").getValue(String.class);
-                text.setText(value);
-                //Recept recept = dataSnapshot.child("Рецепты").getValue(Recept.class);
+                List<String> list = new ArrayList<>();
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String value = ds.getValue(String.class);
+                    list.add(value);
 
-                //updateUI();
+                }
+                Log.d("TAG",list.toString());
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1,list);
+                ingridients_lv.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        searchRef.addListenerForSingleValueEvent(valueEventListener);
+/*
+        myRef = FirebaseDatabase.getInstance().getReference("Рецепты");
+        Query query = myRef.orderByChild("Ингридиенты").equalTo("Морковь, сахар, редис");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String test = dataSnapshot.child("Имя").getValue(String.class);
+                text.setText(test);
             }
 
             @Override
@@ -43,5 +71,6 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+*/
     }
 }
