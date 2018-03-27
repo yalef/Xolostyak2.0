@@ -3,6 +3,9 @@ package com.example.user.xolostyak20;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseUser user;
     TextView text;
     ListView ingridients_lv;
+    List<String> list;
     private DatabaseReference rootRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +45,16 @@ public class SearchActivity extends AppCompatActivity {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> list = new ArrayList<>();
+                list = new ArrayList<>();
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String value = ds.getValue(String.class);
                     list.add(value);
 
                 }
                 Log.d("TAG",list.toString());
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1,list);
+                ingridients_lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
+                        android.R.layout.simple_list_item_multiple_choice,list);
                 ingridients_lv.setAdapter(adapter);
             }
 
@@ -56,6 +62,22 @@ public class SearchActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         };
         searchRef.addListenerForSingleValueEvent(valueEventListener);
+
+        ingridients_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SparseBooleanArray sp=ingridients_lv.getCheckedItemPositions();
+
+                String selectedItems="";
+                for(int i=0;i < list.size();i++){
+                        if(sp.get(i)) {
+                            selectedItems += list.get(i) + ",";
+                        }
+                }
+                text.setText(selectedItems);
+
+            }
+        });
 /*
         myRef = FirebaseDatabase.getInstance().getReference("Рецепты");
         Query query = myRef.orderByChild("Ингридиенты").equalTo("Морковь, сахар, редис");
