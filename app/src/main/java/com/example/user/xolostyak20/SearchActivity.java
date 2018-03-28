@@ -1,5 +1,6 @@
 package com.example.user.xolostyak20;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,8 +29,10 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView text;
+    Button search_btn;
     ListView ingridients_lv;
     List<String> list;
+    String selectedItems; //Выбранные элементы в листе
     private DatabaseReference rootRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +41,12 @@ public class SearchActivity extends AppCompatActivity {
 
         text = (TextView) findViewById(R.id.text);
         ingridients_lv = (ListView) findViewById(R.id.ingr_list);
+        search_btn = (Button) findViewById(R.id.search_btn);
 
         user = auth.getInstance().getCurrentUser();
 
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference searchRef = rootRef.child("Search");
+        rootRef = FirebaseDatabase.getInstance().getReference(); //Общая ссылка на бд
+        DatabaseReference searchRef = rootRef.child("Search"); //Ссылка на данные для листа
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,15 +73,24 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SparseBooleanArray sp=ingridients_lv.getCheckedItemPositions();
 
-                String selectedItems="";
+                selectedItems="";
                 for(int i=0;i < list.size();i++){
                         if(sp.get(i)) {
                             selectedItems += list.get(i) + ",";
                         }
                 }
                 text.setText(selectedItems);
-
             }
+        });
+
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchActivity.this, ResultActivity.class);
+                i.putExtra("select",selectedItems);
+                startActivity(i);
+            }
+            
         });
 /*
         myRef = FirebaseDatabase.getInstance().getReference("Рецепты");
