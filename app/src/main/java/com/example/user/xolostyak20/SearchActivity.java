@@ -46,7 +46,8 @@ public class SearchActivity extends AppCompatActivity {
         user = auth.getInstance().getCurrentUser();
 
         rootRef = FirebaseDatabase.getInstance().getReference(); //Общая ссылка на бд
-        DatabaseReference searchRef = rootRef.child("Search"); //Ссылка на данные для листа
+        DatabaseReference searchRef = rootRef.child("Search"); //Ссылка на данные для
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,6 +68,36 @@ public class SearchActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         };
         searchRef.addListenerForSingleValueEvent(valueEventListener);
+
+        DatabaseReference resultRef = rootRef.child("Recepts");
+        Query resultQuery = resultRef.orderByChild("Ingridients").equalTo("Orange"); //Работаем с поиском рецептов
+        resultQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                list = new ArrayList<>();
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String value = ds.getValue(String.class);
+                    list.add(value);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        ValueEventListener resultValue = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
 
         ingridients_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
                 i.putExtra("select",selectedItems);
                 startActivity(i);
             }
-            
+
         });
 /*
         myRef = FirebaseDatabase.getInstance().getReference("Рецепты");
