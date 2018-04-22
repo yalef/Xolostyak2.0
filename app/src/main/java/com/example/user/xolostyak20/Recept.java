@@ -7,29 +7,14 @@ package com.example.user.xolostyak20;
 public class Recept {
     String name,discription;
     String[] ingridients;
-    int id;
-    public Recept(String name, String discription, String[] ingridients, int id){
-        this.name = name;
-        this.discription = discription;
-        this.ingridients = ingridients;
-        this.id = id;
-    }
-    public Recept(String name,String discription,String[] ingridients){
+    public Recept(String name, String discription, String[] ingridients){
         this.name = name;
         this.discription = discription;
         this.ingridients = ingridients;
     }
-    public Recept(String name,String discription){
+    public Recept(String name,String[] ingridients){
         this.name = name;
-        this.discription = discription;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.ingridients = ingridients;
     }
 
     public String[] getIngridients() {

@@ -69,36 +69,6 @@ public class SearchActivity extends AppCompatActivity {
         };
         searchRef.addListenerForSingleValueEvent(valueEventListener);
 
-        DatabaseReference resultRef = rootRef.child("Recepts");
-        Query resultQuery = resultRef.orderByChild("Ingridients").equalTo("Orange"); //Работаем с поиском рецептов
-        resultQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                list = new ArrayList<>();
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String value = ds.getValue(String.class);
-                    list.add(value);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        ValueEventListener resultValue = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
         ingridients_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
