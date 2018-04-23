@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +31,9 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseUser user;
     TextView text;
     Button search_btn;
+    Toolbar toolbar;
     ListView ingridients_lv;
+    Toolbar toolbar;
     List<String> list;
     String selectedItems; //Выбранные элементы в листе
     private DatabaseReference rootRef;
@@ -38,6 +41,9 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        toolbar =(Toolbar) findViewById(R.id.myToolBar);
+        setSupportActionBar(toolbar);
 
         text = (TextView) findViewById(R.id.text);
         ingridients_lv = (ListView) findViewById(R.id.ingr_list);
@@ -93,21 +99,5 @@ public class SearchActivity extends AppCompatActivity {
             }
 
         });
-/*
-        myRef = FirebaseDatabase.getInstance().getReference("Рецепты");
-        Query query = myRef.orderByChild("Ингридиенты").equalTo("Морковь, сахар, редис");
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String test = dataSnapshot.child("Имя").getValue(String.class);
-                text.setText(test);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-*/
     }
 }

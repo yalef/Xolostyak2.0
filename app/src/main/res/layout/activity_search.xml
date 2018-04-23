@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.user.xolostyak20.SearchActivity">
-
+    <include
+        layout="@layout/toolbar"></include>
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
