@@ -1,91 +1,59 @@
 package com.example.user.xolostyak20;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.Api;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+import java.util.concurrent.TimeUnit;
 
 public class SignInActivity extends AppCompatActivity {
+    private static final String TAG = "GoogleSignInActivity";
+    private static final int RC_SIGN_IN = 9001;
+    private SignInButton google_auth;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private GoogleApiClient mGoogleApiClient;
+    String idToken;
 
-    Button log,reg;
-    EditText mail,pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        log = (Button) findViewById(R.id.login);
-        reg = (Button) findViewById(R.id.reg);
-        mail = (EditText) findViewById(R.id.mail);
-        pass = (EditText) findViewById(R.id.password);
-
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    Intent i = new Intent(SignInActivity.this,SearchActivity.class);
-                    startActivity(i);
-                }else{
-
-                }
-            }
-        };
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user!=null){
-            Intent i = new Intent(SignInActivity.this,SearchActivity.class);
-            startActivity(i);
-        }
-
-        log.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signing(mail.getText().toString(),pass.getText().toString());
-            }
-        });
-        reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registration(mail.getText().toString(),pass.getText().toString());
-            }
-        });
+        mAuth = com.google.firebase.auth.FirebaseAuth.getInstance();
+        google_auth = (SignInButton) findViewById(R.id.google_sign);
     }
-    public void signing(String mail,String pass){
-        mAuth.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(SignInActivity.this,"Login succesfull!",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(SignInActivity.this,"Login not succesfull!",Toast.LENGTH_SHORT).show();
-                }
 
-            }
-        });
-    }
-    public void registration(String mail, String pass){
-        mAuth.createUserWithEmailAndPassword(mail,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(SignInActivity.this,"Registration succesfull!",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(SignInActivity.this,"Registration not succesfull!",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 }

@@ -2,6 +2,9 @@ package com.example.user.xolostyak20;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,10 +21,19 @@ public class ResultActivity extends AppCompatActivity {
     private DatabaseReference rootRef;
     String name_rec,disc_rec;
     String[] ingrs_rec;
+    Toolbar toolbar;
+    RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        rv = (RecyclerView) findViewById(R.id.rv);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         final String result = getIntent().getStringExtra("select");
         final ArrayList<Recept> recept_list = new ArrayList<>(); //Список рецептов для rv
@@ -49,5 +61,18 @@ public class ResultActivity extends AppCompatActivity {
 
             }
         });
+
+        ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this,recept_list);
+        rv.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

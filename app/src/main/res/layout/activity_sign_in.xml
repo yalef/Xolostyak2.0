@@ -42,4 +42,9 @@
         android:text="Registration"
         tools:layout_editor_absoluteX="279dp"
         tools:layout_editor_absoluteY="131dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.google.android.gms.common.SignInButton>
 </LinearLayout>

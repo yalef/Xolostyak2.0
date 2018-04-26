@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.user.xolostyak20.SearchActivity">
+
     <include
+        android:id="@+id/toolbar"
         layout="@layout/toolbar"></include>
     <TextView
         android:id="@+id/text"
@@ -19,7 +21,7 @@
 
     <Button
         android:id="@+id/search_btn"
-        style="@style/Widget.AppCompat.Button.Small"
+        style="@android:style/Widget.Material.Button.Toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search" />
