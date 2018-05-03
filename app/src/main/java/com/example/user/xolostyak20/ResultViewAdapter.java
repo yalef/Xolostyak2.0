@@ -23,12 +23,12 @@ import java.util.List;
 class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolder> {
     private Context context;
     private LayoutInflater inflater;
-    private List<Recept> receptes;
+    private List<Recept> recepts;
 
-    ResultViewAdapter(Context context, List<Recept> receptes) {
-        this.receptes = receptes;
-        this.inflater = LayoutInflater.from(context);
+    ResultViewAdapter(Context context, List<Recept> recepts) {
+        this.recepts = recepts;
         this.context = context;
+        this.inflater = LayoutInflater.from(context);
     }
     @Override
     public ResultViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -38,6 +38,32 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
     }
 
     @Override
+    public void onBindViewHolder(ResultViewAdapter.ViewHolder holder, int position) {
+        Recept recept = recepts.get(position);
+        //holder.imageView.setImageResource(phone.getImage());
+        holder.nameView.setText(recept.getName());
+        holder.discrView.setText(recept.getIngridients());
+    }
+
+    @Override
+    public int getItemCount() {
+        return recepts.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        //final ImageView imageView;
+        final TextView nameView, discrView;
+        final CardView cv;
+        ViewHolder(View view){
+            super(view);
+           // imageView = (ImageView)view.findViewById(R.id.image);
+            nameView = (TextView) view.findViewById(R.id.name);
+            discrView = (TextView) view.findViewById(R.id.discr);
+            cv = (CardView) view.findViewById(R.id.cv);
+        }
+    }
+}
+/*    @Override
     public void onBindViewHolder(ResultViewAdapter.ViewHolder holder, int position) {
         final Recept recept = receptes.get(position);
         //holder.imageView.setImageResource(recept.getImage());
@@ -53,23 +79,4 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
                 context.startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return receptes.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        final ImageView imageView;
-        final TextView nameView, discriptionView;
-        final CardView cv;
-        ViewHolder(View view){
-            super(view);
-            imageView = (ImageView)view.findViewById(R.id.image);
-            nameView = (TextView) view.findViewById(R.id.name);
-            discriptionView = (TextView) view.findViewById(R.id.discr);
-            cv = (CardView) view.findViewById(R.id.cv);
-        }
-    }
-}
+    }*/

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_result"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +9,7 @@
     tools:context="com.example.user.xolostyak20.ResultActivity">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_result"
         layout="@layout/toolbar"></include>
 
     <android.support.v7.widget.RecyclerView

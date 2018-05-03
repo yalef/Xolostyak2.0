@@ -1,11 +1,16 @@
 package com.example.user.xolostyak20;
 
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,44 +20,60 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 
     private DatabaseReference rootRef;
-    String name_rec,disc_rec;
-    String[] ingrs_rec;
-    Toolbar toolbar;
+    String name_rec,disc_rec,ingrs_rec;
     RecyclerView rv;
+    Toolbar tb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
         rv = (RecyclerView) findViewById(R.id.rv);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        tb = (Toolbar) findViewById(R.id.toolbar_result);
+
+        setSupportActionBar(tb);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
         final String result = getIntent().getStringExtra("select");
-        final ArrayList<Recept> recept_list = new ArrayList<>(); //Список рецептов для rv
+        final List<Recept> recept_list = new ArrayList<>(); //Список рецептов для rv
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+
         rootRef = FirebaseDatabase.getInstance().getReference();
         Query result_query = rootRef.child("Recepts").orderByChild("Ingridients");
 
         result_query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds:dataSnapshot.getChildren()){
-                    String value = ds.child("Ingridients").getValue(String.class);
-                    ArrayList<String> list = new ArrayList<>();
-                    if(value.contains(result)){
-                        name_rec = ds.child("Name").getValue(String.class);
-                     list.add(name_rec);
-                     ingrs_rec = name_rec.split(",");
-                     disc_rec = ds.child("Discription").getValue(String.class);
-                     recept_list.add(new Recept(name_rec,disc_rec,ingrs_rec));
+
+
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        String value = ds.child("Ingridients").getValue(String.class);
+                        List<String> list = new ArrayList<>();
+                        if (value.contains(result)) {
+                            name_rec = ds.child("Name").getValue(String.class);
+/*                            list.add(name_rec);
+                            ingrs_rec = ds.child("Ingridients").getValue(String.class);*/
+                            disc_rec = ds.child("Discription").getValue(String.class);
+                            Recept recept = new Recept(name_rec,disc_rec);
+                            recept_list.add(recept);
+                            ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this, recept_list);
+                            rv.setAdapter(adapter);
+                        }
                     }
+                }catch (NullPointerException e){
+                    View v = (View)findViewById(R.id.main_result);
+                    Snackbar.make(v, "Nothing found", Snackbar.LENGTH_LONG)
+                            .setAction("ok", snackbarOnClickListener).show();
                 }
             }
 
@@ -62,9 +83,29 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this,recept_list);
-        rv.setAdapter(adapter);
+
     }
+
+
+    /*    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1){
+            if(requestCode == RESULT_OK){
+
+            }
+        }
+    }*/
+
+    View.OnClickListener snackbarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(ResultActivity.this,SearchActivity.class);
+            //startActivityForResult(i,1);
+            startActivity(i);
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

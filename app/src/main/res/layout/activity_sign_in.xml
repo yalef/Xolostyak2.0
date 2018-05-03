@@ -7,44 +7,38 @@
     android:orientation="vertical"
     tools:context="com.example.user.xolostyak20.SignInActivity">
 
-    <EditText
-        android:hint="mail"
-        android:id="@+id/mail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="2dp" />
-
-    <EditText
-        android:hint="password"
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="56dp" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="131dp" />
-
-    <Button
-        android:id="@+id/reg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registration"
-        tools:layout_editor_absoluteX="279dp"
-        tools:layout_editor_absoluteY="131dp" />
-
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/google_sign"
+        android:id="@+id/sign_in_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.google.android.gms.common.SignInButton>
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <ImageView
+
+            android:id="@+id/google_icon"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/detail"
+            tools:text="Firebase User ID: 123456789abc" />
+    </LinearLayout>
+
 </LinearLayout>

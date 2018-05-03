@@ -8,8 +8,9 @@
     tools:context="com.example.user.xolostyak20.SearchActivity">
 
     <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"></include>
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar"></include>
+
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
@@ -21,7 +22,6 @@
 
     <Button
         android:id="@+id/search_btn"
-        style="@android:style/Widget.Material.Button.Toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search" />

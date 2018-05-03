@@ -31,7 +31,7 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseUser user;
     TextView text;
     Button search_btn;
-    Toolbar toolbar;
+    Toolbar tb;
     ListView ingridients_lv;
     List<String> list;
     String selectedItems; //Выбранные элементы в листе
@@ -41,14 +41,14 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-
+        tb = (Toolbar) findViewById(R.id.toolbar);
         text = (TextView) findViewById(R.id.text);
         ingridients_lv = (ListView) findViewById(R.id.ingr_list);
         search_btn = (Button) findViewById(R.id.search_btn);
+
+
+/*        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         user = auth.getInstance().getCurrentUser();
 
