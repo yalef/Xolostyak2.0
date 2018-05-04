@@ -7,20 +7,27 @@ package com.example.user.xolostyak20;
 public class Recept {
     String name,discription;
     String ingridients;
+    String image;
 
-    public Recept(String name, String discription, String ingridients){
+    public Recept(String name, String discription, String ingridients,String image){
         this.name = name;
         this.discription = discription;
         this.ingridients = ingridients;
     }
-    public Recept(String name,String ingridients){
+    public Recept(String name,String ingridients,String image){
         this.name = name;
         this.ingridients = ingridients;
+        this.image = image;
     }
 
-    public String getIngridients() {
+    public String getIngridients() { return ingridients; }
 
-        return ingridients;
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setIngridients(String ingridients) {

@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
     @Override
     public void onBindViewHolder(ResultViewAdapter.ViewHolder holder, int position) {
         Recept recept = recepts.get(position);
-        //holder.imageView.setImageResource(phone.getImage());
+        Picasso.with(context).load(recept.getImage()).into(holder.imageView);
         holder.nameView.setText(recept.getName());
         holder.discrView.setText(recept.getIngridients());
     }
@@ -51,12 +53,12 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        //final ImageView imageView;
+        final ImageView imageView;
         final TextView nameView, discrView;
         final CardView cv;
         ViewHolder(View view){
             super(view);
-           // imageView = (ImageView)view.findViewById(R.id.image);
+            imageView = (ImageView)view.findViewById(R.id.image);
             nameView = (TextView) view.findViewById(R.id.name);
             discrView = (TextView) view.findViewById(R.id.discr);
             cv = (CardView) view.findViewById(R.id.cv);

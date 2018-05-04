@@ -25,7 +25,7 @@ import java.util.List;
 public class ResultActivity extends AppCompatActivity {
 
     private DatabaseReference rootRef;
-    String name_rec,disc_rec,ingrs_rec;
+    String name_rec,disc_rec,ingrs_rec,image_rec;
     RecyclerView rv;
     Toolbar tb;
     @Override
@@ -64,7 +64,8 @@ public class ResultActivity extends AppCompatActivity {
 /*                            list.add(name_rec);
                             ingrs_rec = ds.child("Ingridients").getValue(String.class);*/
                             disc_rec = ds.child("Discription").getValue(String.class);
-                            Recept recept = new Recept(name_rec,disc_rec);
+                            image_rec = ds.child("pic").getValue(String.class);
+                            Recept recept = new Recept(name_rec,disc_rec,image_rec);
                             recept_list.add(recept);
                             ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this, recept_list);
                             rv.setAdapter(adapter);
