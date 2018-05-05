@@ -41,10 +41,19 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(ResultViewAdapter.ViewHolder holder, int position) {
-        Recept recept = recepts.get(position);
+        final Recept recept = recepts.get(position);
         Picasso.with(context).load(recept.getImage()).into(holder.imageView);
         holder.nameView.setText(recept.getName());
         holder.discrView.setText(recept.getIngridients());
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ReceptActivity.class);
+                intent.putExtra("name",recept.getName());
+                //intent.putExtra("disc",recept.getDiscription());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
