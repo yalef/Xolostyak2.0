@@ -28,11 +28,13 @@ public class ResultActivity extends AppCompatActivity {
     String name_rec,disc_rec,ingrs_rec,image_rec;
     RecyclerView rv;
     Toolbar tb;
+    View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        v = (View)findViewById(R.id.main_result);
         rv = (RecyclerView) findViewById(R.id.rv);
         tb = (Toolbar) findViewById(R.id.toolbar_result);
 
@@ -57,6 +59,11 @@ public class ResultActivity extends AppCompatActivity {
 
                 try {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if(result == null || result.length()<2){
+                            Snackbar.make(v, "Nothing found", Snackbar.LENGTH_LONG)
+                                    .setAction("ok", snackbarOnClickListener).show();
+                            break;
+                        }
                         String value = ds.child("Ingridients").getValue(String.class);
                         List<String> list = new ArrayList<>();
                         if (value.contains(result)) {
@@ -72,7 +79,6 @@ public class ResultActivity extends AppCompatActivity {
                         }
                     }
                 }catch (NullPointerException e){
-                    View v = (View)findViewById(R.id.main_result);
                     Snackbar.make(v, "Nothing found", Snackbar.LENGTH_LONG)
                             .setAction("ok", snackbarOnClickListener).show();
                 }
