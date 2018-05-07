@@ -1,11 +1,15 @@
 package com.example.user.xolostyak20;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView text;
+    View v;
     Button search_btn;
     Toolbar tb;
     ListView ingridients_lv;
@@ -41,11 +46,14 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        v = (View) findViewById(R.id.activity_search);
         tb = (Toolbar) findViewById(R.id.toolbar);
         text = (TextView) findViewById(R.id.text);
         ingridients_lv = (ListView) findViewById(R.id.ingr_list);
         search_btn = (Button) findViewById(R.id.search_btn);
 
+        setSupportActionBar(tb);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 /*        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);*/
@@ -100,5 +108,24 @@ public class SearchActivity extends AppCompatActivity {
             }
 
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()){
+            case R.id.favor_item:
+                Snackbar.make(v, "favorite - succes!", Snackbar.LENGTH_LONG)
+                        .show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }

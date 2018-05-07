@@ -50,7 +50,8 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
             public void onClick(View view) {
                 Intent intent = new Intent(context, ReceptActivity.class);
                 intent.putExtra("name",recept.getName());
-                //intent.putExtra("disc",recept.getDiscription());
+                intent.putExtra("disc",recept.getDiscription());
+                intent.putExtra("pic",recept.getImage());
                 context.startActivity(intent);
             }
         });
@@ -61,7 +62,7 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
         return recepts.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView imageView;
         final TextView nameView, discrView;
         final CardView cv;

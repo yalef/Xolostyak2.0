@@ -42,6 +42,7 @@ public class ResultActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         final String result = getIntent().getStringExtra("select");
         final List<Recept> recept_list = new ArrayList<>(); //Список рецептов для rv
