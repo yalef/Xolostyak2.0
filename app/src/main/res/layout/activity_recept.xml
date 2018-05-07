@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recept_activity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +10,14 @@
 
     <include layout="@layout/toolbar"
         android:id="@+id/tb_rec"></include>
+
+    <CheckBox
+        android:id="@+id/fav"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="add favourite" />
 
     <TextView
         android:textSize="40dp"
