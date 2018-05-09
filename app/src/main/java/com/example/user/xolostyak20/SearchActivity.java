@@ -120,8 +120,6 @@ public class SearchActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()){
             case R.id.favor_item:
-                Snackbar.make(v, "favorite - succes!", Snackbar.LENGTH_LONG)
-                        .show();
                 Intent i = new Intent(SearchActivity.this, FavoriteActivity.class);
                 startActivity(i);
                 return true;

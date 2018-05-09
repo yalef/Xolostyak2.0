@@ -52,7 +52,7 @@ private DatabaseReference rootref;
         rootref = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference fav_ref = rootref.child(user.getUid()).child("fav");
+        DatabaseReference fav_ref = rootref.child(user.getUid());
         fav_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

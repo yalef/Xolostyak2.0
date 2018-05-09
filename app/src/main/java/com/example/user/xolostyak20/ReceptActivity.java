@@ -12,8 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.internal.firebase_auth.zzao;
@@ -22,33 +24,41 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReceptActivity extends AppCompatActivity {
-View v;
+View vw;
 TextView tv;
-RecyclerView rv;
+ImageView img;
+
 private DatabaseReference rootRef;
+final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 Toolbar tb;
-CheckBox fav;
+Button btn_fav;
 
-List<String> ingr_list = new ArrayList<>();
+List<String> rec_list;
+public static String PREF_IS_CHECKED = "is_checked";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recept);
 
-        rv = (RecyclerView) findViewById(R.id.rv_rec);
-        v = (View) findViewById(R.id.recept_activity);
+        vw = (View) findViewById(R.id.recept_activity);
         tv = (TextView) findViewById(R.id.textView);
         tb = (Toolbar) findViewById(R.id.tb_rec);
-        fav = (CheckBox) findViewById(R.id.fav);
+        btn_fav = (Button) findViewById(R.id.btn_fav);
+        img = (ImageView) findViewById(R.id.imageView);
 
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,28 +66,21 @@ List<String> ingr_list = new ArrayList<>();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         final String name_rec = getIntent().getStringExtra("name");
+        final String img_rec = getIntent().getStringExtra("pic");
         tv.setText(name_rec);
-
-        String[] names = name_rec.split(",");
-        for(int i =0;i<names.length;i++){
-            ingr_list.add(names[i]);
-        }
-
+        Picasso.with(ReceptActivity.this).load(img_rec).into(img);
         rootRef = FirebaseDatabase.getInstance().getReference();
 
-        fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    rootRef.child(user.getUid()).child("fav").push().setValue(name_rec.toString());
-                    Snackbar.make(v, "Added to favorite!", Snackbar.LENGTH_LONG)
-                            .show();
-                }else{
+        rec_list = new ArrayList<>();
 
-                }
+        btn_fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                update_fire();
+                test(rec_list,name_rec);
             }
         });
+
     }
 
     @Override
@@ -88,5 +91,51 @@ List<String> ingr_list = new ArrayList<>();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void test(List<String> rec_list,String name_rec) {
+        if (rec_list.size() == 0) {
+            rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
+            Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
+
+        } else {
+            for (int i = 0; i < rec_list.size(); i++) {
+
+/*                if (rec_list.get(i).contains(name_rec)) {
+                    //удаление
+                    rootRef.child(user.getUid()).child(name_rec).removeValue();
+                    Snackbar.make(vw, "Removed from favorite!", Snackbar.LENGTH_LONG).show();
+
+                    break;
+                } if {*/
+                    //добавление
+                    rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
+                    Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
+
+                    break;
+                    }
+        }
+    }
+
+    public void update_fire(){
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        rootRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()==null){
+                    rec_list.clear();
+                }
+                for(DataSnapshot ds:dataSnapshot.getChildren()){
+                    String value = ds.getValue(String.class);
+                    rec_list.add(value);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

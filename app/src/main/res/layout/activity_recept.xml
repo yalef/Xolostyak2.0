@@ -13,41 +13,58 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="79dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_weight="1"
-            android:text="Reciepe"
-            android:textSize="40dp" />
-
-        <CheckBox
-            android:id="@+id/fav"
-            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:checked="false"
-            android:text="add favourite" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="Reciepe"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textSize="40dp" />
+
+                <Button
+                    android:id="@+id/btn_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="add to favorite" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
 
     </android.support.v7.widget.CardView>
 
     <TextView
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textSize="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingridients : " />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_rec"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    </android.support.v7.widget.RecyclerView>
+        android:text="Ingridients : "
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textSize="18dp" />
 
 </LinearLayout>
