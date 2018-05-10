@@ -76,8 +76,10 @@ public static String PREF_IS_CHECKED = "is_checked";
         btn_fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                update_fire();
-                test(rec_list,name_rec);
+                rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
+                Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
+/*                update_fire();
+                test(rec_list,name_rec);*/
             }
         });
 
@@ -92,7 +94,7 @@ public static String PREF_IS_CHECKED = "is_checked";
 
         return super.onOptionsItemSelected(item);
     }
-    public void test(List<String> rec_list,String name_rec) {
+/*    public void test(List<String> rec_list,String name_rec) {
         if (rec_list.size() == 0) {
             rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
             Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
@@ -100,13 +102,13 @@ public static String PREF_IS_CHECKED = "is_checked";
         } else {
             for (int i = 0; i < rec_list.size(); i++) {
 
-/*                if (rec_list.get(i).contains(name_rec)) {
+*//*                if (rec_list.get(i).contains(name_rec)) {
                     //удаление
                     rootRef.child(user.getUid()).child(name_rec).removeValue();
                     Snackbar.make(vw, "Removed from favorite!", Snackbar.LENGTH_LONG).show();
 
                     break;
-                } if {*/
+                } if {*//*
                     //добавление
                     rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
                     Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
@@ -137,5 +139,5 @@ public static String PREF_IS_CHECKED = "is_checked";
 
             }
         });
-    }
+    }*/
 }
