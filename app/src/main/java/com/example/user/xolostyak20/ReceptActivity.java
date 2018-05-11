@@ -41,7 +41,7 @@ TextView name_rec_txt;
 TextView disc_rec_txt;
 TextView ingr_rec_txt;
 
-ImageView img;
+ImageView img, img_big;
 
 private DatabaseReference rootRef;
 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -64,6 +64,7 @@ public static String PREF_IS_CHECKED = "is_checked";
         tb = (Toolbar) findViewById(R.id.tb_rec);
         btn_fav = (Button) findViewById(R.id.btn_fav);
         img = (ImageView) findViewById(R.id.imageView);
+        img_big = (ImageView) findViewById(R.id.imageView2);
 
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -78,6 +79,7 @@ public static String PREF_IS_CHECKED = "is_checked";
         disc_rec_txt.setText(disc_rec);
         ingr_rec_txt.setText(ingr_rec);
         Picasso.with(ReceptActivity.this).load(img_rec).into(img);
+        Picasso.with(ReceptActivity.this).load(img_rec).into(img_big);
 
 
         rootRef = FirebaseDatabase.getInstance().getReference();
