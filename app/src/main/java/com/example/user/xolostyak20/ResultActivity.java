@@ -71,9 +71,10 @@ public class ResultActivity extends AppCompatActivity {
                             name_rec = ds.child("Name").getValue(String.class);
 /*                            list.add(name_rec);
                             ingrs_rec = ds.child("Ingridients").getValue(String.class);*/
+                            ingrs_rec = ds.child("Ingridients").getValue(String.class);
                             disc_rec = ds.child("Discription").getValue(String.class);
                             image_rec = ds.child("pic").getValue(String.class);
-                            Recept recept = new Recept(name_rec,disc_rec,image_rec);
+                            Recept recept = new Recept(name_rec,disc_rec,ingrs_rec,image_rec);
                             recept_list.add(recept);
                             ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this, recept_list);
                             rv.setAdapter(adapter);

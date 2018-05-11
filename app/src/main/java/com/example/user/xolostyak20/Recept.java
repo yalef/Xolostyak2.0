@@ -13,6 +13,7 @@ public class Recept {
         this.name = name;
         this.discription = discription;
         this.ingridients = ingridients;
+        this.image =image;
     }
     public Recept(String name,String ingridients,String image){
         this.name = name;

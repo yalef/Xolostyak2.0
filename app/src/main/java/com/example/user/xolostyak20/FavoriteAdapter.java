@@ -52,6 +52,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 intent.putExtra("name",recept.getName());
                 intent.putExtra("disc",recept.getDiscription());
                 intent.putExtra("pic",recept.getImage());
+                intent.putExtra("ingr",recept.getIngridients());
                 context.startActivity(intent);
             }
         });
@@ -62,6 +63,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 rootref.child(user.getUid()).child(recept.getName()).removeValue();
+                delete(recept);
                 Snackbar.make(v, "Removed from favorite!", Snackbar.LENGTH_LONG).show();
             }
         });
@@ -86,4 +88,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             delete_btn = (ImageButton) view.findViewById(R.id.delete_btn);
         }
     }
+
+    private void delete(Recept recept) {
+        int position = recepts.indexOf(recept);
+        recepts.remove(position);
+        notifyItemRemoved(position);
+    }
+
 }

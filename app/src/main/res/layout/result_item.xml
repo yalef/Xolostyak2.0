@@ -17,27 +17,27 @@
             android:layout_height="128dp" />
 
         <LinearLayout
-            android:layout_margin="2dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:orientation="vertical">
 
             <TextView
-                android:textSize="25dp"
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Name"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/discr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:textSize="18dp"
-                android:text="discription" />
+                android:text="discription"
+                android:textSize="18dp" />
         </LinearLayout>
 
 

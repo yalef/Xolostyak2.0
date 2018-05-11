@@ -52,6 +52,7 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
                 intent.putExtra("name",recept.getName());
                 intent.putExtra("disc",recept.getDiscription());
                 intent.putExtra("pic",recept.getImage());
+                intent.putExtra("ingr",recept.getIngridients());
                 context.startActivity(intent);
             }
         });

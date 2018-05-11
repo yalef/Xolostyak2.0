@@ -37,7 +37,10 @@ import java.util.List;
 
 public class ReceptActivity extends AppCompatActivity {
 View vw;
-TextView tv;
+TextView name_rec_txt;
+TextView disc_rec_txt;
+TextView ingr_rec_txt;
+
 ImageView img;
 
 private DatabaseReference rootRef;
@@ -55,7 +58,9 @@ public static String PREF_IS_CHECKED = "is_checked";
         setContentView(R.layout.activity_recept);
 
         vw = (View) findViewById(R.id.recept_activity);
-        tv = (TextView) findViewById(R.id.textView);
+        name_rec_txt = (TextView) findViewById(R.id.textView);
+        disc_rec_txt = (TextView) findViewById(R.id.disc_rec);
+        ingr_rec_txt = (TextView) findViewById(R.id.ingr_rec);
         tb = (Toolbar) findViewById(R.id.tb_rec);
         btn_fav = (Button) findViewById(R.id.btn_fav);
         img = (ImageView) findViewById(R.id.imageView);
@@ -66,9 +71,15 @@ public static String PREF_IS_CHECKED = "is_checked";
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         final String name_rec = getIntent().getStringExtra("name");
+        final String disc_rec = getIntent().getStringExtra("disc");
+        final String ingr_rec = getIntent().getStringExtra("ingr");
         final String img_rec = getIntent().getStringExtra("pic");
-        tv.setText(name_rec);
+        name_rec_txt.setText(name_rec);
+        disc_rec_txt.setText(disc_rec);
+        ingr_rec_txt.setText(ingr_rec);
         Picasso.with(ReceptActivity.this).load(img_rec).into(img);
+
+
         rootRef = FirebaseDatabase.getInstance().getReference();
 
         rec_list = new ArrayList<>();

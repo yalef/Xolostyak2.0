@@ -67,4 +67,23 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textSize="18dp" />
 
+    <TextView
+        android:id="@+id/ingr_rec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:text="Discription" />
+
+    <TextView
+        android:id="@+id/disc_rec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp" />
+
 </LinearLayout>

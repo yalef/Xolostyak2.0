@@ -26,7 +26,7 @@ public class FavoriteActivity extends AppCompatActivity {
     RecyclerView rv;
     View v;
 
-    String name_rec, ingr_rec, image_rec;
+    String name_rec, ingr_rec, image_rec,disc_rec;
 
     List<String> list;
     List<Recept> recept_list;
@@ -83,8 +83,9 @@ public class FavoriteActivity extends AppCompatActivity {
                                 name_rec = ds.child("Name").getValue(String.class);
                                 ingr_rec = ds.child("Ingridients").getValue(String.class);
                                 image_rec = ds.child("pic").getValue(String.class);
+                                disc_rec = ds.child("Discription").getValue(String.class);
                                 //Recept recept = new Recept(name_rec, ingr_rec, image_rec);
-                                recept_list.add(new Recept(name_rec,ingr_rec,image_rec));
+                                recept_list.add(new Recept(name_rec,disc_rec,ingr_rec,image_rec));
                                 FavoriteAdapter adapter = new FavoriteAdapter(FavoriteActivity.this, recept_list);
                                 rv.setAdapter(adapter);
                             }
@@ -102,6 +103,8 @@ public class FavoriteActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
