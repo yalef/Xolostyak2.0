@@ -64,7 +64,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
                 rootref.child(user.getUid()).child(recept.getName()).removeValue();
                 delete(recept);
-                Snackbar.make(v, "Removed from favorite!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(v, "Успешно удалено!", Snackbar.LENGTH_LONG).show();
             }
         });
     }

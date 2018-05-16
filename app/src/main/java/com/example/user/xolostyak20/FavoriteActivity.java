@@ -94,7 +94,7 @@ public class FavoriteActivity extends AppCompatActivity {
                     }
                     //updateUI();
                 } catch (NullPointerException e) {
-                    Snackbar.make(v, "Something went wrong ;(", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(v, "Что то пошло не так :с", Snackbar.LENGTH_LONG).show();
                 }
             }
 

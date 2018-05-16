@@ -90,14 +90,13 @@ public static String PREF_IS_CHECKED = "is_checked";
             @Override
             public void onClick(View v) {
                 rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
-                Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(vw, "Добавлено в избранное", Snackbar.LENGTH_LONG).show();
 /*                update_fire();
                 test(rec_list,name_rec);*/
             }
         });
 
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -107,50 +106,4 @@ public static String PREF_IS_CHECKED = "is_checked";
 
         return super.onOptionsItemSelected(item);
     }
-/*    public void test(List<String> rec_list,String name_rec) {
-        if (rec_list.size() == 0) {
-            rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
-            Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
-
-        } else {
-            for (int i = 0; i < rec_list.size(); i++) {
-
-*//*                if (rec_list.get(i).contains(name_rec)) {
-                    //удаление
-                    rootRef.child(user.getUid()).child(name_rec).removeValue();
-                    Snackbar.make(vw, "Removed from favorite!", Snackbar.LENGTH_LONG).show();
-
-                    break;
-                } if {*//*
-                    //добавление
-                    rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
-                    Snackbar.make(vw, "Added to favorite!", Snackbar.LENGTH_LONG).show();
-
-                    break;
-                    }
-        }
-    }
-
-    public void update_fire(){
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        rootRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue()==null){
-                    rec_list.clear();
-                }
-                for(DataSnapshot ds:dataSnapshot.getChildren()){
-                    String value = ds.getValue(String.class);
-                    rec_list.add(value);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
 }

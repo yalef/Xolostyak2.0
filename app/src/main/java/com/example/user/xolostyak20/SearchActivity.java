@@ -39,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar tb;
     ListView ingridients_lv;
     List<String> list;
+    String filter;
     String selectedItems; //Выбранные элементы в листе
     private DatabaseReference rootRef;
     @Override
@@ -92,7 +93,7 @@ public class SearchActivity extends AppCompatActivity {
                 selectedItems="";
                 for(int i=0;i < list.size();i++){
                         if(sp.get(i)) {
-                            selectedItems += list.get(i) + ",";
+                            selectedItems += list.get(i) + " ";
                         }
                 }
                 text.setText(selectedItems);
@@ -104,6 +105,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, ResultActivity.class);
                 i.putExtra("select",selectedItems);
+                i.putExtra("filter",filter);
                 startActivity(i);
             }
 
@@ -119,6 +121,19 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()){
+            case R.id.strict_filter:
+                //Строгий поиск
+                if(item.isChecked()){
+                    filter = "strict";
+                }
+
+                return true;
+            case R.id.free_filter:
+                if(item.isChecked()){
+                    filter = "free";
+                }
+                //Свободный поиск
+                return true;
             case R.id.favor_item:
                 Intent i = new Intent(SearchActivity.this, FavoriteActivity.class);
                 startActivity(i);

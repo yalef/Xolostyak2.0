@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="add to favorite" />
+                    android:text="Добавить в избранное" />
             </LinearLayout>
 
 
@@ -63,7 +63,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingridients : "
+        android:text="Ингредиенты : "
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textSize="18dp" />
 
@@ -76,9 +76,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
+        android:text="Описание :"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:text="Discription" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/disc_rec"
