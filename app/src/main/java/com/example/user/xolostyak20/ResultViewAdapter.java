@@ -44,10 +44,13 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
     public void onBindViewHolder(final ResultViewAdapter.ViewHolder holder, int position) {
 
         final Recept recept = recepts.get(position);
-
+        String discr = recept.getIngridients();
+        if(discr.length()>50){
+            discr = discr.substring(0,48)+"...";
+        }
         Picasso.with(context).load(recept.getImage()).into(holder.imageView);
         holder.nameView.setText(recept.getName());
-        holder.discrView.setText(recept.getIngridients());
+        holder.discrView.setText(discr);
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
