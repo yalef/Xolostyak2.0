@@ -61,6 +61,8 @@ public class SearchActivity extends AppCompatActivity {
 
         user = auth.getInstance().getCurrentUser();
 
+        filter = "free";
+
         rootRef = FirebaseDatabase.getInstance().getReference(); //Общая ссылка на бд
         DatabaseReference searchRef = rootRef.child("Search"); //Ссылка на данные для
 
@@ -111,7 +113,39 @@ public class SearchActivity extends AppCompatActivity {
 
         });
     }
+
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.favor_item:
+                Intent i = new Intent(SearchActivity.this,FavoriteActivity.class);
+                startActivity(i);
+            case R.id.strict_filter:
+                item.setChecked(true);
+                if(item.isChecked()) {
+                    filter = "strict";
+                    Snackbar.make(v, "Выбран строгий поиск", Snackbar.LENGTH_LONG).show();
+                }
+                return true;
+            case R.id.free_filter:
+                item.setChecked(true);
+                if(item.isChecked()) {
+                    filter = "free";
+                    Snackbar.make(v, "Выбран гибкий поиск", Snackbar.LENGTH_LONG).show();
+                    return true;
+                }
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
+    }
+    /*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
@@ -125,12 +159,14 @@ public class SearchActivity extends AppCompatActivity {
                 //Строгий поиск
                 if(item.isChecked()){
                     filter = "strict";
+                    Snackbar.make(v, "Выбран строгий поиск", Snackbar.LENGTH_LONG).show();
                 }
 
                 return true;
             case R.id.free_filter:
                 if(item.isChecked()){
                     filter = "free";
+                    Snackbar.make(v, "Выбран гибкий поиск", Snackbar.LENGTH_LONG).show();
                 }
                 //Свободный поиск
                 return true;
@@ -142,5 +178,5 @@ public class SearchActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
-    }
+    }*/
 }

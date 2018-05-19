@@ -6,6 +6,7 @@ package com.example.user.xolostyak20;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,8 +41,10 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(ResultViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ResultViewAdapter.ViewHolder holder, int position) {
+
         final Recept recept = recepts.get(position);
+
         Picasso.with(context).load(recept.getImage()).into(holder.imageView);
         holder.nameView.setText(recept.getName());
         holder.discrView.setText(recept.getIngridients());
@@ -76,20 +79,3 @@ class ResultViewAdapter extends RecyclerView.Adapter<ResultViewAdapter.ViewHolde
         }
     }
 }
-/*    @Override
-    public void onBindViewHolder(ResultViewAdapter.ViewHolder holder, int position) {
-        final Recept recept = receptes.get(position);
-        //holder.imageView.setImageResource(recept.getImage());
-        holder.nameView.setText(recept.getName());
-        holder.discriptionView.setText(recept.getDiscription());
-
-        holder.cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ReceptActivity.class);
-                intent.putExtra("name",recept.getName());
-                intent.putExtra("disc",recept.getDiscription());
-                context.startActivity(intent);
-            }
-        });
-    }*/

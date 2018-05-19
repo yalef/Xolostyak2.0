@@ -73,44 +73,6 @@ public class ResultActivity extends AppCompatActivity {
         DatabaseReference ingridientsRef = rootRef.child("List").child("Ingridients");
         search(ingridientsRef);
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-/*
-        Query result_query = rootRef.child("Recepts").orderByChild("Ingridients");
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        if (result == null || result.length() < 2) {
-                            Snackbar.make(v, "Ничего не найдено", Snackbar.LENGTH_LONG)
-                                    .setAction("ok", snackbarOnClickListener).show();
-                            break;
-                        }
-                        String value = ds.child("Ingridients").getValue(String.class);
-                        List<String> list = new ArrayList<>();
-                        if (value.contains(result)) {
-                            name_rec = ds.child("Name").getValue(String.class);
-                            ingrs_rec = ds.child("Ingridients").getValue(String.class);
-                            disc_rec = ds.child("Discription").getValue(String.class);
-                            image_rec = ds.child("pic").getValue(String.class);
-                            Recept recept = new Recept(name_rec, disc_rec, ingrs_rec, image_rec);
-                            recept_list.add(recept);
-                            ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this, recept_list);
-                            rv.setAdapter(adapter);
-                        }
-                    }
-                } catch (NullPointerException e) {
-                    Snackbar.make(v, "Ничего не найдено", Snackbar.LENGTH_LONG)
-                            .setAction("ok", snackbarOnClickListener).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        result_query.addValueEventListener(valueEventListener);
-*/
 
     }
 
@@ -180,17 +142,24 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 name_rec=dataSnapshot.child("Name").getValue(String.class);
-                disc_rec=dataSnapshot.child("Discr").getValue(String.class);
+                disc_rec=dataSnapshot.child("Discription").getValue(String.class);
+                ingrs_rec=dataSnapshot.child("Ingridients").getValue(String.class);
+
                 image_rec=dataSnapshot.child("pic").getValue(String.class);
-                recept_list.add(new Recept(name_rec,disc_rec,image_rec));
-                ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this, recept_list);
+                recept_list.add(new Recept(name_rec,disc_rec,ingrs_rec,image_rec));
+                if(recept_list!=null){
+                    ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this, recept_list);
                 rv.setAdapter(adapter);
+                }else{
+                Snackbar.make(v, "Ничего не найдено", Snackbar.LENGTH_LONG).show();
+                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         };
-        rootRef.child("Ids").child(id).addListenerForSingleValueEvent(valueEventListener);
+        rootRef.child("Recepts").child(id).addListenerForSingleValueEvent(valueEventListener);
     }
 }

@@ -9,11 +9,11 @@
 
         <item
             android:id="@+id/free_filter"
-            android:title="Свободный поиск"
-            android:checked="true"/>
+            android:checked="true"
+            android:title="Свободный поиск" />
 
-        <item
-            android:id="@+id/strict_filter"
+        <item android:id="@+id/strict_filter"
+            android:checked="false"
             android:title="Точный поиск" />
     </group>
 </menu>
