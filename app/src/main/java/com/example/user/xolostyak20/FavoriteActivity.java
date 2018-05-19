@@ -1,5 +1,6 @@
 package com.example.user.xolostyak20;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,24 +53,30 @@ public class FavoriteActivity extends AppCompatActivity {
         rv.setLayoutManager(llm);
 
         rootref = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        try {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference fav_ref = rootref.child(user.getUid());
-        fav_ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                list = new ArrayList<>();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String value = ds.getValue(String.class);
-                    list.add(value);
+            DatabaseReference fav_ref = rootref.child(user.getUid());
+            fav_ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    list = new ArrayList<>();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        String value = ds.getValue(String.class);
+                        list.add(value);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }catch (NullPointerException e){
+            Snackbar.make(v, "Для использования этой функции вам необходимо авторизироваться.", Snackbar.LENGTH_LONG)
+                    .setAction("Авторизация",snackbarOnClickListener).show();
+        }
+
         Query fav_query = rootref.child("Recepts").orderByChild("Name");
         recept_list = new ArrayList<>();
         fav_query.addValueEventListener(new ValueEventListener() {
@@ -84,17 +92,15 @@ public class FavoriteActivity extends AppCompatActivity {
                                 ingr_rec = ds.child("Ingridients").getValue(String.class);
                                 image_rec = ds.child("pic").getValue(String.class);
                                 disc_rec = ds.child("Discription").getValue(String.class);
-                                //Recept recept = new Recept(name_rec, ingr_rec, image_rec);
                                 recept_list.add(new Recept(name_rec,disc_rec,ingr_rec,image_rec));
                                 FavoriteAdapter adapter = new FavoriteAdapter(FavoriteActivity.this, recept_list);
                                 rv.setAdapter(adapter);
                             }
                         }
-
                     }
                     //updateUI();
                 } catch (NullPointerException e) {
-                    Snackbar.make(v, "Что то пошло не так :с", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(FavoriteActivity.this,"Что-то пошло не так...",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -117,4 +123,13 @@ public class FavoriteActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    View.OnClickListener snackbarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(FavoriteActivity.this,SignInActivity.class);
+            startActivity(i);
+        }
+    };
+
 }

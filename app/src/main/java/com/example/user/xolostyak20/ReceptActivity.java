@@ -1,5 +1,6 @@
 package com.example.user.xolostyak20;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
@@ -89,8 +90,13 @@ public static String PREF_IS_CHECKED = "is_checked";
         btn_fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
-                Snackbar.make(vw, "Добавлено в избранное", Snackbar.LENGTH_LONG).show();
+                try {
+                    rootRef.child(user.getUid()).child(name_rec).setValue(name_rec.toString());
+                    Snackbar.make(vw, "Добавлено в избранное", Snackbar.LENGTH_LONG).show();
+                }catch (NullPointerException e){
+                    Snackbar.make(v, "Для использования этой функции вам необходимо авторизироваться.", Snackbar.LENGTH_LONG)
+                            .setAction("Авторизация",snackbarOnClickListener).show();
+                }
 /*                update_fire();
                 test(rec_list,name_rec);*/
             }
@@ -106,4 +112,13 @@ public static String PREF_IS_CHECKED = "is_checked";
 
         return super.onOptionsItemSelected(item);
     }
+
+    View.OnClickListener snackbarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(ReceptActivity.this,SignInActivity.class);
+            startActivity(i);
+        }
+    };
+
 }

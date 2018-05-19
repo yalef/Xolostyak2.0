@@ -50,6 +50,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    private Button skip_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.skip).setOnClickListener(this);
 
         // [START config_signin]
         // Configure Google Sign In
@@ -181,6 +183,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         int i = v.getId();
         if (i == R.id.sign_in_button) {
             signIn();
+        }
+        if(i == R.id.skip){
+            Intent intent = new Intent(SignInActivity.this,SearchActivity.class);
+            startActivity(intent);
         }
     }
 }
