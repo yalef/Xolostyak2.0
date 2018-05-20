@@ -6,6 +6,7 @@ import android.renderscript.Sampler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -56,6 +57,9 @@ public class ResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+/*        rv.addItemDecoration(new DividerItemDecoration(rv.getContext(),
+                DividerItemDecoration.VERTICAL));*/
 
         final String result = getIntent().getStringExtra("select");
         filter = getIntent().getStringExtra("filter");
@@ -178,7 +182,6 @@ public class ResultActivity extends AppCompatActivity {
         ref.addValueEventListener(valueEventListener_second);
         updateUI();
     }
-
     void getRecInfo(String id){
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override

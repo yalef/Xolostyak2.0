@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -72,8 +73,9 @@ public class SearchActivity extends AppCompatActivity {
                 list = new ArrayList<>();
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String value = ds.getValue(String.class);
-                    list.add(value);
-
+                    if (!list.contains(value)){
+                        list.add(value);
+                    }
                 }
                 Log.d("TAG",list.toString());
                 ingridients_lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -145,38 +147,4 @@ public class SearchActivity extends AppCompatActivity {
                     return super.onOptionsItemSelected(item);
         }
     }
-    /*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()){
-            case R.id.strict_filter:
-                //Строгий поиск
-                if(item.isChecked()){
-                    filter = "strict";
-                    Snackbar.make(v, "Выбран строгий поиск", Snackbar.LENGTH_LONG).show();
-                }
-
-                return true;
-            case R.id.free_filter:
-                if(item.isChecked()){
-                    filter = "free";
-                    Snackbar.make(v, "Выбран гибкий поиск", Snackbar.LENGTH_LONG).show();
-                }
-                //Свободный поиск
-                return true;
-            case R.id.favor_item:
-                Intent i = new Intent(SearchActivity.this, FavoriteActivity.class);
-                startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-    }*/
 }
