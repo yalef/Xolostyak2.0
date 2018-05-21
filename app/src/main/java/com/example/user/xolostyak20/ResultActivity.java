@@ -103,7 +103,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 number_child = ((int) dataSnapshot.getChildrenCount())-1;
-                for (i = 0; i <= number_child; i++) {
+                for (int i = 0; i <= number_child; i++) {
                     ref.child(String.valueOf(i)).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

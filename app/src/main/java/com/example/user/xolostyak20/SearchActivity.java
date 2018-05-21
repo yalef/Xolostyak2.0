@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -39,8 +40,9 @@ public class SearchActivity extends AppCompatActivity {
     Button search_btn;
     Toolbar tb;
     ListView ingridients_lv;
-    List<String> list;
+    List<String> list = new ArrayList<>();
     String filter;
+    int number_child;
     String selectedItems; //Выбранные элементы в листе
     private DatabaseReference rootRef;
     @Override
@@ -65,7 +67,10 @@ public class SearchActivity extends AppCompatActivity {
         filter = "free";
 
         rootRef = FirebaseDatabase.getInstance().getReference(); //Общая ссылка на бд
-        DatabaseReference searchRef = rootRef.child("Search"); //Ссылка на данные для
+        DatabaseReference searchRef = rootRef.child("List").child("Ingridients");
+        getItem(searchRef);
+
+/*        DatabaseReference searchRef = rootRef.child("Search"); //Ссылка на данные для
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -87,7 +92,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
-        searchRef.addListenerForSingleValueEvent(valueEventListener);
+        searchRef.addListenerForSingleValueEvent(valueEventListener);*/
+
 
         ingridients_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -146,5 +152,45 @@ public class SearchActivity extends AppCompatActivity {
                 default:
                     return super.onOptionsItemSelected(item);
         }
+    }
+    void addItem(String item){
+        if (!list.contains(item)){
+            list.add(item);
+        }
+    }
+    void getItem(final DatabaseReference ref){
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                number_child = ((int) dataSnapshot.getChildrenCount())-1;
+                for (int i = 0; i <= number_child; i++) {
+                    ref.child(String.valueOf(i)).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                String ingridient = ds.getKey();
+                                Log.d("TAG", ingridient);
+                                addItem(ingridient);
+                                ingridients_lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
+                                        android.R.layout.simple_list_item_multiple_choice,list);
+                                ingridients_lv.setAdapter(adapter);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        ref.addValueEventListener(valueEventListener);
     }
 }

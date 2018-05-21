@@ -77,7 +77,7 @@ public class FavoriteActivity extends AppCompatActivity {
                     .setAction("Авторизация",snackbarOnClickListener).show();
         }
 
-        Query fav_query = rootref.child("Recepts").orderByChild("Name");
+        Query fav_query = rootref.child("Recepts");
         recept_list = new ArrayList<>();
         fav_query.addValueEventListener(new ValueEventListener() {
             @Override
