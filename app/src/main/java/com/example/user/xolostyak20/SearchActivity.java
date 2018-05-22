@@ -5,6 +5,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView text;
+    EditText inputSearch;
     View v;
     Button search_btn;
     Toolbar tb;
@@ -44,6 +48,7 @@ public class SearchActivity extends AppCompatActivity {
     String filter;
     int number_child;
     String selectedItems; //Выбранные элементы в листе
+    ArrayAdapter<String> adapter;
     private DatabaseReference rootRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class SearchActivity extends AppCompatActivity {
         text = (TextView) findViewById(R.id.text);
         ingridients_lv = (ListView) findViewById(R.id.ingr_list);
         search_btn = (Button) findViewById(R.id.search_btn);
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
 
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -120,6 +126,24 @@ public class SearchActivity extends AppCompatActivity {
             }
 
         });
+
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SearchActivity.this.adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     @Override
@@ -172,7 +196,7 @@ public class SearchActivity extends AppCompatActivity {
                                 Log.d("TAG", ingridient);
                                 addItem(ingridient);
                                 ingridients_lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
+                                adapter = new ArrayAdapter<String>(getBaseContext(),
                                         android.R.layout.simple_list_item_multiple_choice,list);
                                 ingridients_lv.setAdapter(adapter);
                             }
