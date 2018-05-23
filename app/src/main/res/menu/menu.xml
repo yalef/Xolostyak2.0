@@ -5,6 +5,9 @@
     <item
         android:id="@+id/favor_item"
         android:title="Избранное"></item>
+    <item
+        android:id="@+id/specialThanks"
+        android:title="Благодарности"></item>
     <group android:checkableBehavior="single">
 
         <item

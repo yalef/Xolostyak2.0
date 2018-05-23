@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Xolostyak2.0</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
-
     <string name="google_status_fmt">Google User: %s</string>
+    <string name="thanks">Все материалы были взяты с нижеперечисленных ресурсов:
+        *текст сайтов*</string>
 </resources>

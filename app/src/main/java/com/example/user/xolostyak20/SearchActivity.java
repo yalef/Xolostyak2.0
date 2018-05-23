@@ -154,11 +154,16 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Intent i;
         switch (item.getItemId()){
-            case R.id.favor_item:
-                Intent i = new Intent(SearchActivity.this,FavoriteActivity.class);
+            case R.id.specialThanks:
+                i = new Intent(SearchActivity.this,SpecialThanksActivity.class);
                 startActivity(i);
+                return true;
+            case R.id.favor_item:
+                i = new Intent(SearchActivity.this,FavoriteActivity.class);
+                startActivity(i);
+                return true;
             case R.id.strict_filter:
                 item.setChecked(true);
                 if(item.isChecked()) {

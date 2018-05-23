@@ -11,11 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SearchActivity"
-            android:windowSoftInputMode="stateHidden"
+        <activity
+            android:name=".SearchActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".SignInActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".SignInActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,15 +24,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ReceptActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".FavoriteActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+        <activity
+            android:name=".ResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReceptActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SpecialThanksActivity"
+            android:label="Благодарности"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
