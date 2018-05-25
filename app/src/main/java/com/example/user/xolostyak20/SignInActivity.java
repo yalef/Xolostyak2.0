@@ -52,7 +52,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mDetailTextView;
     private View v;
 
-    private Button sign_out_btn;
+    private Button skip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);
         v = findViewById(R.id.SignInActivity);
-        sign_out_btn = findViewById(R.id.sign_out_button);
+        skip = findViewById(R.id.skip);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -189,11 +189,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText("Signed out");
             mDetailTextView.setText(null);
 
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+            skip.setText("Пропустить");
         }
     }
 
