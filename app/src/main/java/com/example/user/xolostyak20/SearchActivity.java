@@ -187,7 +187,14 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
     void addItem(String item){
+//        item.toLowerCase();
+//        String lastChar = item.substring(item.length() - 1);
         if (!list.contains(item)){
+/*            if(lastChar.contains(" ")){
+                StringBuffer stringBuffer = new StringBuffer(item);
+                stringBuffer.delete(item.indexOf(lastChar),item.indexOf(lastChar)+1);
+                item = stringBuffer.toString();
+            }*/
             list.add(item);
         }
     }
@@ -201,7 +208,13 @@ public class SearchActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                String ingridient = ds.getKey();
+                                String ingridient = ds.getKey().toLowerCase();
+                                String lastChar = ingridient.substring(ingridient.length() - 1);
+                                if(lastChar.contains(" ")){
+                                    StringBuffer stringBuffer = new StringBuffer(ingridient);
+                                    stringBuffer.delete(ingridient.indexOf(lastChar),ingridient.indexOf(lastChar)+1);
+                                    ingridient = stringBuffer.toString();
+                                }
                                 Log.d("TAG", ingridient);
                                 addItem(ingridient);
                                 Collections.sort(list, String.CASE_INSENSITIVE_ORDER);

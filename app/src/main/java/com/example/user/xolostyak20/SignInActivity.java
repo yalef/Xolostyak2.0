@@ -50,7 +50,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
-    private Button skip_btn;
+    private View v;
+
+    private Button sign_out_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +62,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // Views
         mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);
+        v = findViewById(R.id.SignInActivity);
+        sign_out_btn = findViewById(R.id.sign_out_button);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.skip).setOnClickListener(this);
+        findViewById(R.id.sign_out_button).setOnClickListener(this);
 
         // [START config_signin]
         // Configure Google Sign In
@@ -80,6 +85,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // [END initialize_auth]
 
         FirebaseUser user = mAuth.getCurrentUser();
+
+
         if(user!=null){
             Intent i = new Intent(SignInActivity.this,SearchActivity.class);
             startActivity(i);
@@ -160,8 +167,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
     // [END signin]
 
+    private void signOut() {
+        // Firebase sign out
+        mAuth.signOut();
 
-
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        updateUI(null);
+                    }
+                });
+        Snackbar.make(v, "Вы успешно вышли из аккаунта!", Snackbar.LENGTH_LONG).show();
+    }
 
     private void updateUI(FirebaseUser user) {
 /*        hideProgressDialog();*/
@@ -184,9 +203,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (i == R.id.sign_in_button) {
             signIn();
         }
-        if(i == R.id.skip){
+        else if(i == R.id.skip){
             Intent intent = new Intent(SignInActivity.this,SearchActivity.class);
             startActivity(intent);
         }
+        else if (i == R.id.sign_out_button) {
+        signOut();
+    }
     }
 }
