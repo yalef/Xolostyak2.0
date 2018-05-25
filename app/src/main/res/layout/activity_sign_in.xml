@@ -16,12 +16,12 @@
     </com.google.android.gms.common.SignInButton>
 
     <Button
-        android:background="#FFF0F4C3"
-
         android:id="@+id/skip"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Пропустить" />
+        android:background="#FFF0F4C3"
+        android:text="Быстрый поиск без авторизации" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,21 +35,24 @@
 
         <TextView
             android:id="@+id/title_text"
-            android:textColor="#FFFF"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#FFFF"
+            android:visibility="invisible" />
 
         <TextView
-            android:textColor="#FFFF"
             android:id="@+id/status"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:textColor="#FFFF"
+            android:visibility="invisible" />
 
         <TextView
-            android:textColor="#FFFF"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFF"
+            android:visibility="invisible"
             tools:text="Firebase User ID: 123456789abc" />
     </LinearLayout>
 

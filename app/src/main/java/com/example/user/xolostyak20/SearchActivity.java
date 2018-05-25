@@ -66,8 +66,8 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-/*        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         user = auth.getInstance().getCurrentUser();
 
@@ -157,6 +157,9 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent i;
         switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
             case R.id.specialThanks:
                 i = new Intent(SearchActivity.this,SpecialThanksActivity.class);
                 startActivity(i);
