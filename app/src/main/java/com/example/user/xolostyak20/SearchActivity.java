@@ -50,6 +50,7 @@ public class SearchActivity extends AppCompatActivity {
     String selectedItems; //Выбранные элементы в листе
     ArrayAdapter<String> adapter;
     private DatabaseReference rootRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +110,7 @@ public class SearchActivity extends AppCompatActivity {
                 selectedItems="";
                 for(int i=0;i < list.size();i++){
                         if(sp.get(i)) {
-                            selectedItems += list.get(i) + " ";
+                            selectedItems += parent.getItemAtPosition(i) + " ";
                         }
                 }
                 text.setText(selectedItems);
@@ -200,6 +201,7 @@ public class SearchActivity extends AppCompatActivity {
                                 String ingridient = ds.getKey();
                                 Log.d("TAG", ingridient);
                                 addItem(ingridient);
+                                Collections.sort(list, String.CASE_INSENSITIVE_ORDER);
                                 ingridients_lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                                 adapter = new ArrayAdapter<String>(getBaseContext(),
                                         android.R.layout.simple_list_item_multiple_choice,list);

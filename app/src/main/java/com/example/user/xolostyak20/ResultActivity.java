@@ -69,9 +69,13 @@ public class ResultActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
 
         //Костыль для получения выбранных элементов
-        String[] result_arr = result.split(" ");
-        for (int i = 0; i < result_arr.length; i++) {
-            user_arr.add(result_arr[i]);
+        try {
+            String[] result_arr = result.split(" ");
+            for (int i = 0; i < result_arr.length; i++) {
+                user_arr.add(result_arr[i]);
+            }
+        }catch (NullPointerException e){
+            Snackbar.make(v, "Ничего не найдено", Snackbar.LENGTH_LONG).setAction("ok",snackbarOnClickListener).show();
         }
 
         DatabaseReference ingridientsRef = rootRef.child("List").child("Ingridients");
@@ -206,4 +210,13 @@ public class ResultActivity extends AppCompatActivity {
         ResultViewAdapter adapter = new ResultViewAdapter(ResultActivity.this, recept_list);
         rv.setAdapter(adapter);
     }
+
+    View.OnClickListener snackbarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(ResultActivity.this,SearchActivity.class);
+            startActivity(i);
+        }
+    };
+
 }

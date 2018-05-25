@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -100,7 +101,7 @@ public class FavoriteActivity extends AppCompatActivity {
                     }
                     //updateUI();
                 } catch (NullPointerException e) {
-                    Toast.makeText(FavoriteActivity.this,"Что-то пошло не так...",Toast.LENGTH_SHORT).show();
+                    Log.d("favor",e.getMessage());
                 }
             }
 
