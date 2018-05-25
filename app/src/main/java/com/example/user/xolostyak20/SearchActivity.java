@@ -39,7 +39,6 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView text;
-    EditText inputSearch;
     View v;
     Button search_btn;
     Toolbar tb;
@@ -61,7 +60,6 @@ public class SearchActivity extends AppCompatActivity {
         text = (TextView) findViewById(R.id.text);
         ingridients_lv = (ListView) findViewById(R.id.ingr_list);
         search_btn = (Button) findViewById(R.id.search_btn);
-        inputSearch = (EditText) findViewById(R.id.inputSearch);
 
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -128,7 +126,7 @@ public class SearchActivity extends AppCompatActivity {
 
         });
 
-        inputSearch.addTextChangedListener(new TextWatcher() {
+/*        inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -143,7 +141,7 @@ public class SearchActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
     }
 
