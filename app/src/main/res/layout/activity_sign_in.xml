@@ -9,13 +9,6 @@
     android:orientation="vertical"
     tools:context="com.example.user.xolostyak20.SignInActivity">
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-    </com.google.android.gms.common.SignInButton>
-
     <Button
         android:id="@+id/skip"
 
@@ -24,19 +17,26 @@
         android:background="#FFF0F4C3"
         android:text="Быстрый поиск без авторизации" />
 
-    <Button
-        android:id="@+id/sign_out_button"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFF0F4C3"
-        android:text="Выйти"
-        android:visibility="visible" />
+        android:layout_height="wrap_content" >
+
+    </com.google.android.gms.common.SignInButton>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF0F4C3"
+            android:text="Выйти"
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/google_icon"

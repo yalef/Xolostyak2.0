@@ -70,7 +70,7 @@ public class ResultActivity extends AppCompatActivity {
 
         //Костыль для получения выбранных элементов
         try {
-            String[] result_arr = result.split(" ");
+            String[] result_arr = result.split(",");
             for (int i = 0; i < result_arr.length; i++) {
                 user_arr.add(result_arr[i]);
             }
@@ -161,14 +161,14 @@ public class ResultActivity extends AppCompatActivity {
                                 Log.d("TAG", ingridient);
                                 Collections.sort(user_arr);
                                 Collections.sort(test_arr);
-                                if (user_arr.equals(test_arr)) {
-                                    //String id = String.valueOf(i-1);
-                                    String id = dataSnapshot.getKey();
-                                    if(filter.contains("strict")){
-                                        getRecInfo(id);
-                                    }
-                                    break;
+                            }
+                            if (test_arr.equals(user_arr)) {
+                                //String id = String.valueOf(i-1);
+                                String id = dataSnapshot.getKey();
+                                if(filter.contains("strict")){
+                                    getRecInfo(id);
                                 }
+                                //break;
                             }
                         }
                         @Override

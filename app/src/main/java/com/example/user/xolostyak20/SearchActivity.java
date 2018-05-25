@@ -110,7 +110,7 @@ public class SearchActivity extends AppCompatActivity {
                 selectedItems="";
                 for(int i=0;i < list.size();i++){
                         if(sp.get(i)) {
-                            selectedItems += parent.getItemAtPosition(i) + " ";
+                            selectedItems += parent.getItemAtPosition(i) + ",";
                         }
                 }
                 text.setText(selectedItems);
